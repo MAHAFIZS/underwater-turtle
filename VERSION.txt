@@ -1,0 +1,14 @@
+Underwater Turtle Controller
+Freeze Version: v1.0
+Controllers:
+- Pure pursuit
+- PN (N=6.57, k_los=4.57, vc_gate=0.05, omega_rate=2.0, los_alpha=0.6)
+
+Validated fields:
+- vortex
+- shear
+
+Evaluation:
+- Grid sweep
+- 40 episodes
+- Robust capture metric

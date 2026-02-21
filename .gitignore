@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.env
+
+# Results / plots
+results/
+*.png
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
