@@ -1,0 +1,22 @@
+underwater_turtle_pn_node:
+  ros__parameters:
+    # tuned PN params (v1.0)
+    pn_N: 6.57
+    pn_k_los: 4.57
+    pn_los_rate_alpha: 0.60
+    pn_vc_gate: 0.05
+    omega_cmd_rate_max: 2.0
+
+    # saturations
+    omega_max: 0.75
+    v_max: 0.78
+
+    # speed profile
+    v_base: 0.20
+    v_gain_dist: 0.07
+    v_min: 0.10
+
+    # topics
+    robot_pose_topic: /robot_pose
+    target_pose_topic: /target_pose
+    cmd_vel_topic: /cmd_vel
