@@ -191,35 +191,81 @@ py -m demos.day6_compare --episodes 40 --fields vortex,shear
 
 ---
 
-## 🔌 ROS Integration (Next Step)
+## 🔌 ROS2 Integration (Implemented)
 
-Because controllers are isolated in:
+This project now includes a ROS2 package for running the PN controller on a TurtleBot3
+with LaserScan-based obstacle avoidance and stability protections.
+
+### 📦 ROS2 Package Location
 
 
-src/controllers/
+ros2/underwater_turtle_ros/
 
 
-A ROS2 node can directly instantiate:
+### ✅ What’s Included
 
-```python
-controller = PNController()
-omega_cmd, v_cmd = controller.compute(robot, dt, current)
+- PN pursuit controller (LOS-based steering) reused from the project controller logic
+- LaserScan front-cone obstacle detection (supports 0..2π scans)
+- Smooth obstacle blending (no stop-go jitter)
+- Side-hold hysteresis (prevents left-right flip-flop)
+- Contact-freeze safety (prevents pushing into obstacles / flipping)
+- Launch + params config (YAML)
 
-No evaluation code is required in ROS.
+### 🧪 Run (ROS2)
 
-📚 Research Context
+Build:
 
-This framework is useful for:
+```bash
+cd <repo_root>/ros2
+colcon build --symlink-install
+source install/setup.bash
 
-Marine robotics research
+Run node:
 
-Interception under flow disturbances
+ros2 run underwater_turtle_ros pn_node
 
-Robust guidance law evaluation
+Or launch with parameters:
 
-Navigation under environmental drift
+ros2 launch underwater_turtle_ros pn.launch.py
+⚙️ Key Parameters (ROS2)
 
-Comparative controller benchmarking
+Parameters are in:
+
+ros2/underwater_turtle_ros/config/pn_params.yaml
+
+Important ones:
+
+front_center_rad: scan front direction (usually 0.0 for TurtleBot3 0..2π scans)
+
+obs_slow_dist, obs_stop_dist: avoidance blend range
+
+contact_dist, contact_hold_s: safety stop on near-contact
+
+v_max, omega_abs_max: stability caps
+
+📌 Notes
+
+TurtleBot3 LaserScan often reports angle_min=0, angle_max≈2π. In that case:
+
+front is typically 0 rad, back is π rad.
+
+The node is designed to be stable near obstacles (prevents oscillation and flipping).
+
+
+### Also update this line near the top
+Your README currently says “ROS2 integration – next step”. Change to:
+
+- “ROS2 integration – implemented”
+
+---
+
+## After editing README, commit + push
+Do this from **your real repo** (PowerShell in `D:\underwater-turtle` OR WSL in `/mnt/d/underwater-turtle`):
+
+```bash
+git add README.md
+git commit -m "Update README with ROS2 integration"
+git push
 
 👤 Author
 
@@ -232,15 +278,3 @@ GitHub: https://github.com/MAHAFIZS
 📌 License
 
 MIT License
-
-
----
-
-# Next Step
-
-After saving this:
-
-```powershell
-git add README.md
-git commit -m "Add professional README"
-git push
